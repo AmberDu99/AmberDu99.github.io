@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amber Du | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #1f1f1f; 
+            --glass: rgba(45, 45, 45, 0.7);
+            --border: rgba(255, 255, 255, 0.12);
+            --accent-blue: #8ab4f8; 
+            --accent-purple: #d7aefb; 
+            --accent-green: #34a853; /* Professional Green */
+            --text: #e8eaed;
+            --text-dim: #9aa0a6;
+            --edu-glow: #8ab4f8;
+            --exp-glow: #81c995;
+        }
+
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; scroll-behavior: smooth; margin: 0; }
+        nav { position: fixed; top: 0; width: 100%; padding: 1.2rem 0; background: rgba(31, 31, 31, 0.85); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); display: flex; justify-content: center; gap: 2.5rem; }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: 0.3s; letter-spacing: 0.5px; }
+        nav a:hover { color: var(--accent-blue); }
+
+        section { padding: 100px 10%; }
+        .hero { height: 55vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero h1 { font-size: 4.5rem; margin-bottom: 10px; letter-spacing: -2px; font-weight: 800; }
+        
+        /* Button Container */
+        .cta-container { display: flex; gap: 15px; margin-top: 2rem; }
+
+        .btn-base { padding: 12px 28px; color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 0.9rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); text-align: center; display: inline-block; }
+        
+        .btn-linkedin { background: #0077b5; }
+        .btn-linkedin:hover { background: #005a8a; transform: translateY(-2px); }
+
+        .btn-resume { background: var(--accent-green); }
+        .btn-resume:hover { background: #2d8a45; transform: translateY(-2px); }
+
+        .marquee { background: rgba(255,255,255,0.03); padding: 1.2rem 0; overflow: hidden; white-space: nowrap; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .marquee-inner { display: inline-block; animation: scroll 30s linear infinite; }
+        .marquee-inner span { padding: 0 2.5rem; color: var(--accent-blue); font-weight: 800; font-size: 0.8rem; letter-spacing: 2px; }
+        @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
+        .profile-card { position: sticky; top: 120px; background: var(--glass); padding: 30px; border-radius: 28px; border: 1px solid var(--border); backdrop-filter: blur(20px); text-align: center; }
+        .profile-card img { width: 100%; border-radius: 20px; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+
+        .timeline { position: relative; border-left: 2px solid var(--border); padding-left: 30px; margin-top: 40px; }
+        .timeline-item { position: relative; margin-bottom: 30px; cursor: pointer; }
+        .timeline-item::before { content: ''; position: absolute; left: -39px; top: 8px; width: 12px; height: 12px; background: var(--text-dim); border: 3px solid var(--bg); border-radius: 50%; z-index: 2; transition: 0.3s; }
+        .timeline-item:hover::before { background: var(--accent-blue); transform: scale(1.3); }
+        .timeline-box { padding: 18px; background: var(--glass); border: 1px solid var(--border); border-radius: 18px; transition: 0.3s; }
+        .timeline-item:hover .timeline-box { transform: translateX(10px); border-color: var(--accent-blue); }
+        .edu-marker { border-left: 5px solid var(--edu-glow); }
+        .exp-marker { border-left: 5px solid var(--exp-glow); }
+
+        .card { background: var(--glass); border: 1px solid var(--border); padding: 2.5rem; border-radius: 24px; margin-bottom: 2.5rem; backdrop-filter: blur(15px); }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+        .tag { padding: 5px 14px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; text-transform: capitalize; }
+        .tag-soft { background: rgba(215, 174, 251, 0.15); color: #e9d5ff; border: 1px solid var(--accent-purple); }
+        .tag-tech { background: rgba(138, 180, 248, 0.15); color: #e0f2fe; border: 1px solid var(--accent-blue); }
+
+        .image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+        .image-grid img { width: 100%; border-radius: 12px; border: 1px solid var(--border); cursor: zoom-in; transition: 0.3s; }
+        .image-grid img:hover { transform: scale(1.02); }
+
+        #lightbox { position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; cursor: zoom-out; }
+        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 10px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+
+        .back-link { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; display: inline-block; margin-top: 1.5rem; border-bottom: 1px solid transparent; transition: 0.3s; }
+        .back-link:hover { color: var(--accent-blue); border-color: var(--accent-blue); }
+
+        ul { padding-left: 1.2rem; }
+        li { margin-bottom: 12px; color: var(--text-dim); line-height: 1.6; }
+
+        @media (max-width: 1024px) { .about-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 3rem; } .cta-container { flex-direction: column; width: 100%; align-items: center; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#home">HOME</a>
+    <a href="#about">ABOUT</a>
+    <a href="#work">WORK</a>
+    <a href="#academic">ACADEMIC</a>
+</nav>
+
+<section id="home" class="hero">
+    <h1>Amber Du</h1>
+    <p style="color: var(--text-dim); font-size: 1.4rem; font-weight: 300;">Data Analyst | Business Analyst</p>
+    <p style="color: var(--accent-blue); letter-spacing: 4px; font-weight: 800; margin-top: 10px;">DATA VISUALIZATION & STORYTELLING 📊✨</p>
+    
+    <div class="cta-container">
+        <a href="https://www.linkedin.com/in/amber-du-384a6b249/" target="_blank" rel="noopener noreferrer" class="btn-base btn-linkedin">LinkedIn Profile</a>
+        <a href="Du, Yuting - Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-base btn-resume">Download Resume</a>
+    </div>
+</section>
+
+<div class="marquee">
+    <div class="marquee-inner">
+        <span>SQL</span><span>PYTHON</span><span>TABLEAU</span><span>POWER BI</span><span>R</span><span>ETL</span><span>SARIMAX</span><span>EDA</span><span>STORYTELLING</span><span>A/B TESTING</span>
+        <span>SQL</span><span>PYTHON</span><span>TABLEAU</span><span>POWER BI</span><span>R</span><span>ETL</span><span>SARIMAX</span><span>EDA</span><span>STORYTELLING</span><span>A/B TESTING</span>
+    </div>
+</div>
+
+<section id="about">
+    <div class="about-grid">
+        <div class="profile-card">
+            <img src="IMG_1458.jpg" alt="Amber Du">
+            <h3 style="margin-bottom: 8px; font-size: 1.4rem;">Amber Du</h3>
+            <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 4px;">M.S. Applied Analytics | Columbia '26</p>
+            <p style="color: var(--accent-blue); font-size: 0.9rem; font-weight: 700;">SQL • Python • Tableau</p>
+        </div>
+        <div>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">About Me</h2>
+            <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-dim);">
+                Hi there! I am a graduate student at Columbia University specializing in transforming complex datasets into actionable insights. I bridge technical data work and business challenges through strategic storytelling and data visualization.
+            </p>
+            
+            <div class="timeline">
+                <div class="timeline-item" onclick="location.href='#ambassador'">
+                    <div class="timeline-box exp-marker">
+                        <small style="color: var(--accent-blue); font-weight: bold;">Sep 2025 - Present</small><br>
+                        <strong>Admission Ambassador (Intern)</strong><br>Columbia University
+                    </div>
+                </div>
+                <div class="timeline-item" onclick="location.href='#academic'">
+                    <div class="timeline-box edu-marker">
+                        <small style="color: var(--accent-blue); font-weight: bold;">Jan 2025 - May 2026</small><br>
+                        <strong>M.S. Applied Analytics</strong><br>Columbia University
+                    </div>
+                </div>
+                <div class="timeline-item" onclick="location.href='#questrade'">
+                    <div class="timeline-box exp-marker">
+                        <small style="color: var(--accent-blue); font-weight: bold;">Nov 2023 - Nov 2024</small><br>
+                        <strong>Bilingual Customer Service Specialist</strong><br>Questrade
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-box edu-marker">
+                        <small style="color: var(--accent-blue); font-weight: bold;">Sep 2022 - Aug 2023</small><br>
+                        <strong>M.S. Marketing</strong><br>York University
+                    </div>
+                </div>
+                <div class="timeline-item" onclick="location.href='#iqvia'">
+                    <div class="timeline-box exp-marker">
+                        <small style="color: var(--accent-blue); font-weight: bold;">Mar 2022 - Jun 2022</small><br>
+                        <strong>Primary Intelligence Intern</strong><br>IQVIA
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-box edu-marker">
+                        <small style="color: var(--accent-blue); font-weight: bold;">Sep 2017 - May 2021</small><br>
+                        <strong>B.S. Marketing</strong><br>Rutgers University
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="work">
+    <h2 style="margin-bottom: 2rem;">Work Experience</h2>
+    
+    <div class="card" id="ambassador">
+        <h3>Columbia University | Admission Ambassador (Intern)</h3>
+        <ul>
+            <li>Supported graduate program recruiting by managing inquiries and leading questionnaire analysis to guide targeted email outreach.</li>
+            <li>Cleaned and standardized questionnaire self-reported undergraduate schools/majors, generated program-level insights, and delivered an automated Excel dashboard highlighting top feeder schools and major-to-program pathways.</li>
+        </ul>
+        <div class="tag-row">
+            <span class="tag tag-soft">Stakeholder Communication</span><span class="tag tag-soft">Strategic Thinking</span><span class="tag tag-soft">Attention to Detail</span><span class="tag tag-soft">Data Cleaning</span><span class="tag tag-soft">Data Visualization</span>
+        </div>
+        <div class="tag-row">
+            <span class="tag tag-tech">Python</span><span class="tag tag-tech">Excel Dashboard</span>
+        </div>
+        <a href="#about" class="back-link">↑ Back to About Me</a>
+    </div>
+
+    <div class="card" id="questrade">
+        <h3>Questrade Financial Group | Bilingual Specialist</h3>
+        <ul>
+            <li>Delivered multi-channel client support, resolved 20+ escalation cases, and supported analytics projects to improve team efficiency.</li>
+            <li>Queried Salesforce service data with SQL (Joins, CTEs, Window Functions) to identify performance gaps in resolution time, escalations, and client satisfaction (CSAT).</li>
+            <li>Built Power BI dashboards, driving targeted coaching and a 10% CSAT improvement.</li>
+        </ul>
+        <div class="tag-row">
+            <span class="tag tag-soft">Business Understanding</span><span class="tag tag-soft">Cross-Functional Collaboration</span><span class="tag tag-soft">Client Relationship Management</span><span class="tag tag-soft">Data Storytelling</span>
+        </div>
+        <div class="tag-row">
+            <span class="tag tag-tech">SQL</span><span class="tag tag-tech">Power BI</span>
+        </div>
+        <a href="#about" class="back-link">↑ Back to About Me</a>
+    </div>
+
+    <div class="card" id="iqvia">
+        <h3>IQVIA | Primary Intelligence Intern</h3>
+        <ul>
+            <li>Researched 8 drugs via PubMed and Clinical Trials; interviewed 15 HCPs to identify target consumers and prescription trends.</li>
+            <li>Cleaned and structured 100+ column survey data using PivotTables, XLOOKUP, and dummy coding to enable analytical insights.</li>
+            <li>Coded 500+ open-ended responses using Excel (INDEX, MATCH, keyword mapping), streamlining qualitative data classification.</li>
+            <li>Performed data cleaning (e.g., deduplication, text standardization, and mode imputation), improving dataset accuracy by 25%.</li>
+            <li>Developed data-driven PowerPoint charts and extracted actionable insights to optimize pricing strategies.</li>
+        </ul>
+        <div class="tag-row">
+            <span class="tag tag-soft">Market Research</span><span class="tag tag-soft">Strategic Thinking</span><span class="tag tag-soft">Questionnaire Analysis</span><span class="tag tag-soft">Data Cleaning</span>
+        </div>
+        <div class="tag-row">
+            <span class="tag tag-tech">Advanced Excel Functions</span><span class="tag tag-tech">PowerPoint Dashboard</span>
+        </div>
+        <a href="#about" class="back-link">↑ Back to About Me</a>
+    </div>
+</section>
+
+<section id="academic">
+    <h2 style="margin-bottom: 2rem;">Academic Projects</h2>
+
+    <div class="card" id="retention-forecasting">
+        <h3>Retention and Forecasting (Capstone)</h3>
+        <ul>
+            <li>Led discussions between the company and the team to clarify business objectives, align requirements, and prepare clean datasets.</li>
+            <li>Conducted EDA on 3M+ patient records using Python, and built Power BI dashboards to identify seasonal trends.</li>
+            <li>Built a 90-day rolling SARIMAX forecasting model and deployed it via a Streamlit app.</li>
+            <li>Delivered a client-ready user guide with model insights and strategic recommendations.</li>
+        </ul>
+        <div class="tag-row">
+            <span class="tag tag-soft">Stakeholder Communication</span><span class="tag tag-soft">Data Cleaning</span><span class="tag tag-soft">Exploratory Data Analysis (EDA)</span><span class="tag tag-soft">Forecasting</span>
+        </div>
+        <div class="tag-row">
+            <span class="tag tag-tech">Power BI</span><span class="tag tag-tech">Python</span><span class="tag tag-tech">Time Series</span><span class="tag tag-tech">PowerPoint Dashboard</span>
+        </div>
+        <div class="image-grid">
+            <img src="1.png" alt="Forecast UI" onclick="zoomImage(this.src)">
+            <img src="2.png" alt="Seasonality Insights" onclick="zoomImage(this.src)">
+        </div>
+        <a href="#about" class="back-link">↑ Back to About Me</a>
+    </div>
+
+    <div class="card" id="relational-db">
+        <h3>Relational Database (SQL Project)</h3>
+        <ul>
+            <li>Designed a 3NF relational travel database using ETL scripts in R and PostgreSQL.</li>
+            <li>Performed SQL queries to retrieve optimal destinations and gas stations along the route.</li>
+            <li>Developed an interactive Shiny app in R to visualize road trips with dynamic maps.</li>
+        </ul>
+        <div class="tag-row">
+            <span class="tag tag-soft">Relational Database Design</span><span class="tag tag-soft">ETL Development</span>
+        </div>
+        <div class="tag-row">
+            <span class="tag tag-tech">R Programming</span><span class="tag tag-tech">PostgreSQL</span><span class="tag tag-tech">Shiny App</span>
+        </div>
+        <div class="image-grid">
+            <img src="3.png" alt="Map UI" onclick="zoomImage(this.src)">
+            <img src="4.png" alt="Data View" onclick="zoomImage(this.src)">
+        </div>
+        <a href="#about" class="back-link">↑ Back to About Me</a>
+    </div>
+
+    <div class="card" id="consumer-analytics">
+        <h3>Consumer Analytics Dashboard</h3>
+        <ul>
+            <li>Researched the vitamin supplement market and cleaned consumer rating datasets.</li>
+            <li>Built a Tableau heatmap to show correlations and validated them with a linear regression model in R.</li>
+            <li>Designed a multi-tab interactive Tableau dashboard for strategic decision support.</li>
+        </ul>
+        <div class="tag-row">
+            <span class="tag tag-soft">Consumer Analytics</span><span class="tag tag-soft">Data Cleaning</span><span class="tag tag-soft">Data Visualization</span><span class="tag tag-soft">Data Storytelling</span>
+        </div>
+        <div class="tag-row">
+            <span class="tag tag-tech">Tableau</span><span class="tag tag-tech">R Programming</span><span class="tag tag-tech">Correlation Analysis</span>
+        </div>
+        <div class="image-grid">
+            <img src="5.png" alt="Market Share" onclick="zoomImage(this.src)">
+            <img src="6.png" alt="Heatmap Correlation" onclick="zoomImage(this.src)">
+        </div>
+        <a href="#about" class="back-link">↑ Back to About Me</a>
+    </div>
+</section>
+
+<div id="lightbox" onclick="this.style.display='none'">
+    <img id="lightbox-img" src="" alt="Full View">
+</div>
+
+<script>
+    function zoomImage(src) {
+        const lightbox = document.getElementById('lightbox');
+        const img = document.getElementById('lightbox-img');
+        img.src = src;
+        lightbox.style.display = 'flex';
+    }
+</script>
+
+</body>
+</html>
